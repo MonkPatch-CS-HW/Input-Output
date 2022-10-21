@@ -41,7 +41,8 @@ public class Tests
     public void LoadRangesTest()
     {
         var ranges = LoadRanges(new List<string> { "../../../data/1.iprs", "../../../data/2.iprs" });
-        throw new NotImplementedException("Допишите тест после задания структуры IPRangesDatabase");
+        That(ranges[0].IpFrom, Is.EqualTo(new IPv4Addr("9.166.251.217")));
+        That(ranges[9].IpTo, Is.EqualTo(new IPv4Addr("81.59.31.57")));
     }
     
     [Test]
