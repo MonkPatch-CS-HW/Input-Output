@@ -106,18 +106,20 @@
         {
             var ipLookupArgs = ParseArgs(args);
             if (ipLookupArgs == null)
-            {
                 return;
-            }
 
+            var outName = Path.ChangeExtension(ipLookupArgs.IpsFile, ".ips.out");
+            var writer = new StreamWriter(outName);
             var queries = LoadQuery(ipLookupArgs.IpsFile);
             var ranges = LoadRanges(ipLookupArgs.IprsFiles);
             foreach (var ip in queries)
             {
                 var range = FindRange(ranges, new IPv4Addr(ip));
-                var result = range != null ? range.ToString() : "[none]";
-                Console.WriteLine($"{ip}: {result}");
+                var result = range == null ? "NO" : $"YES {range}";
+                writer.WriteLine($"{ip}: {result}");
             }
+
+            writer.Close();
         }
     }
 }
